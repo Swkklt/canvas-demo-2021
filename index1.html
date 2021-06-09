@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="./style1.css">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="xxx" width="300" height="300"></canvas>
+  <script>
+    var yyy = document.getElementById('xxx');
+    var contextX = yyy.getContext('2d');
+
+    contextX.fillStyle = 'red';  //设置填充样式
+    contextX.fillRect(0,0,100,100);  //填充一个矩形，起始坐标wei(0,0),宽高为(100,100)，下边带坐标的意思一样
+
+    contextX.strokeStyle = 'yellow'  //描边样式
+    contextX.strokeRect(200,200,100,100);   //描边矩形
+    contextX.fillStyle= 'white';
+    contextX.fillRect(200,200,100,100);
+    contextX.clearRect(225,225,50,50);   //清除矩形
+
+    //画三角形
+    contextX.beginPath();
+    contextX.moveTo(200,50)  //设置起始坐标
+    contextX.lineTo(250,50)   //设置第二个坐标并连线
+    contextX.lineTo(250,100)  //设置第三个坐标并连线，自动补全未连线部分
+    contextX.fill()    //填充颜色，默认为上边最近设置的样式
+    //画圆
+    contextX.beginPath()
+    contextX.arc(150,150,30,0,Math.PI)
+    contextX.fill()
+
+    //绘制路径
+    contextX.beginPath()
+    contextX.moveTo(50,200);  //路径起点
+    contextX.lineWidth = 5  //设置路径宽度
+    contextX.lineTo(150,200)  //终点
+    contextX.stroke()
+    contextX.closePath()   //也可以不写，会自动结束
+
+  </script>
+</body>
+</html>

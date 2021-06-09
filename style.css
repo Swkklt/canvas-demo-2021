@@ -1,0 +1,28 @@
+body{
+  margin: 0;
+}
+#xxx{
+  background: green;
+  display: block;       /* 将xxx默认的inline-block类型改成block类型 */
+}
+.actions{
+  border:  3px solid #e06567;
+  position: fixed;     /*  相对于浏览器窗口进行定位 */
+  bottom: 0;
+  left: 0;
+}
+.actions > #brush{
+  display: none;  /* 设置画笔默认为隐藏状态 */
+}
+.actions.x > #brush{   /* 下边的两个设置如果是状态“action x”即两者兼顾，那么画笔显示，橡皮擦隐藏 */
+  display: inline-block;
+}
+.actions.x > #eraser{
+  display: none;
+}
+/*#canvas{
+  background: red;
+  height: 100vh; viewport height————视口高度100% 与视图高度一样 
+  position: relative;  相对定位
+}*/
+  

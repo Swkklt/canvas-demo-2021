@@ -1,0 +1,4 @@
+#xxx{
+  background: green;
+  display: block;    /* 将xxx默认的inline-block类型改成block类型 */
+}
