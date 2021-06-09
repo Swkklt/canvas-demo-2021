@@ -4,9 +4,9 @@
     var yyy = document.getElementById('xxx');
     var contextX = yyy.getContext('2d')
 
-    autoSetCanvasSize(yyy)
+    autoSetCanvasSize(yyy)  //在手机上此功能不可用，因为手机屏幕不可能变大
 
-    listenToMouse(yyy)
+    listenToUser(yyy)  //手机上只能尽量模拟鼠标事件(比如点击一下可以出现down，move，up事件)，但是没有这三个事件，所以以这三个事件为基础是不能画画的,所以应该在此函数里添加手机事件
     
     var eraserEnabledX = false
     eraser.onclick = function(){
@@ -46,53 +46,93 @@
     
   
 
-    function listenToMouse(canvasXA){
+    function listenToUser(canvasXA){
       var usingX = false  //生成一个标记 本质就是一个变量，用不同的值表示不同的状态
       //var lastPoint = {"x": undefined,"y":undefined}  这里也可以像下边这样写：
       var lastPoint = {
         x: undefined,
         y: undefined
       }
-      canvasXA.onmousedown = function(aaa){
-        var x = aaa.clientX;
-        var y = aaa.clientY;
-        usingX = true
-        if(eraserEnabledX){
-          // <!-- Swkklt写下一行 ------------------------------------------ -->
-          // contextX.clearRect(x-(eraserWidthXY/2),y-(eraserWidthXY/2),eraserWidthXY,eraserWidthXY)
-          contextX.clearRect(x-5,y-5,10,10)
-        }else{
-          lastPoint = {"x":x,"y":y}
-          //console.log(lastPoint)
-          //drawCircleX(x,y,1)
+      if(document.body.ontouchstart !== undefined){  //特性检测：窗口是否具有“ontouchstart”属性，是则为触屏方式，不是则为鼠标方式
+        //此设备为触屏设备
+        //<!-- 手机上运行：2.画画问题  如下边三个函数    共2个-->
+        canvasXA.ontouchstart = function(aaa){
+          var x = aaa.touches[0].clientX;
+          var y = aaa.touches[0].clientY;
+          usingX = true
+          if(eraserEnabledX){
+            // <!-- Swkklt写下一行 ------------------------------------------ -->
+            // contextX.clearRect(x-(eraserWidthXY/2),y-(eraserWidthXY/2),eraserWidthXY,eraserWidthXY)
+            contextX.clearRect(x-5,y-5,10,10)
+          }else{
+            lastPoint = {"x":x,"y":y}
+            //console.log(lastPoint)
+            //drawCircleX(x,y,1)
+          }
+          // console.log(x,y)
+          // console.log('开始摸我了')
+          
         }
-        
-      }
-      canvasXA.onmousemove = function(aaa){
-        var x = aaa.clientX;
-        var y = aaa.clientY;
-
-        if(!usingX){ return  }  //usingX不成立直接跳出此函数(function(aaa))
-        
-        if(eraserEnabledX){
-          // <!-- Swkklt写下一行 ------------------------------------------ -->
-          // contextX.clearRect(x-(eraserWidthXY/2),y-(eraserWidthXY/2),eraserWidthXY,eraserWidthXY)
-          contextX.clearRect(x-5,y-5,10,10)
-        }else{
-          var newPoint = {"x":x,"y":y}
-          //drawCircleX(x,y,1)
-          drawLineX(lastPoint["x"],lastPoint["y"],newPoint["x"],newPoint["y"])//  也可以这么调用变量：drawLineX(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
-          lastPoint = newPoint
+        canvasXA.ontouchmove = function(aaa){
+          var x = aaa.touches[0].clientX;
+          var y = aaa.touches[0].clientY;
+  
+          if(!usingX){ return  }  //usingX不成立直接跳出此函数(function(aaa))
+          
+          if(eraserEnabledX){
+            // <!-- Swkklt写下一行 ------------------------------------------ -->
+            // contextX.clearRect(x-(eraserWidthXY/2),y-(eraserWidthXY/2),eraserWidthXY,eraserWidthXY)
+            contextX.clearRect(x-5,y-5,10,10)
+          }else{
+            var newPoint = {"x":x,"y":y}
+            //drawCircleX(x,y,1)
+            drawLineX(lastPoint["x"],lastPoint["y"],newPoint["x"],newPoint["y"])//  也可以这么调用变量：drawLineX(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
+            lastPoint = newPoint
+          }
+          console.log('边摸变动')
         }
-        
-        
-        
-      }
-      canvasXA.onmouseup = function(aaa){
-        usingX = false
+        canvasXA.ontouchend = function(aaa){
+          usingX = false
+          console.log('摸完了')
+        }
+      }else{  //非触屏设备
+        canvasXA.onmousedown = function(aaa){
+          var x = aaa.clientX;
+          var y = aaa.clientY;
+          usingX = true
+          if(eraserEnabledX){
+            // <!-- Swkklt写下一行 ------------------------------------------ -->
+            // contextX.clearRect(x-(eraserWidthXY/2),y-(eraserWidthXY/2),eraserWidthXY,eraserWidthXY)
+            contextX.clearRect(x-5,y-5,10,10)
+          }else{
+            lastPoint = {"x":x,"y":y}
+            //console.log(lastPoint)
+            //drawCircleX(x,y,1)
+          }
+        }
+        canvasXA.onmousemove = function(aaa){
+          var x = aaa.clientX;
+          var y = aaa.clientY;
+  
+          if(!usingX){ return  }  //usingX不成立直接跳出此函数(function(aaa))
+          
+          if(eraserEnabledX){
+            // <!-- Swkklt写下一行 ------------------------------------------ -->
+            // contextX.clearRect(x-(eraserWidthXY/2),y-(eraserWidthXY/2),eraserWidthXY,eraserWidthXY)
+            contextX.clearRect(x-5,y-5,10,10)
+          }else{
+            var newPoint = {"x":x,"y":y}
+            //drawCircleX(x,y,1)
+            drawLineX(lastPoint["x"],lastPoint["y"],newPoint["x"],newPoint["y"])//  也可以这么调用变量：drawLineX(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
+            lastPoint = newPoint
+          }
+        }
+        canvasXA.onmouseup = function(aaa){
+          usingX = false
+        }
       }
     }  
-    function autoSetCanvasSize(canvasXXX){
+    function autoSetCanvasSize(canvasXXX){ //在手机上此功能不可用，因为手机屏幕不可能变大
       setCanvasSize()  // 设置canvas的宽高为窗口大小  
       window.onresize = function(){   // 窗口改变大小后再设置canvas的宽高为窗口大小
         setCanvasSize()
