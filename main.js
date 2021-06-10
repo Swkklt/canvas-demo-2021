@@ -9,14 +9,44 @@
     listenToUser(yyy)  //手机上只能尽量模拟鼠标事件(比如点击一下可以出现down，move，up事件)，但是没有这三个事件，所以以这三个事件为基础是不能画画的,所以应该在此函数里添加手机事件
     
     var eraserEnabledX = false
+
+    pencil.onclick = function(){
+      eraserEnabledX = false
+      pencil.classList.add('active')
+      eraser.classList.remove('active')
+        //  因为加了图标<svg></svg>所以下边的一行代码去掉
+        //  actions.className = 'actions'  //通过id可以控制类名，进而控制显示的样式
+    }
     eraser.onclick = function(){
       eraserEnabledX = true
-      actions.className = 'actions x'  //通过id可以控制类名，进而控制显示的样式
+      eraser.classList.add('active')
+      pencil.classList.remove('active')
+        //  因为加了图标<svg></svg>所以下边的一行代码去掉
+        //  actions.className = 'actions x'  //通过id可以控制类名，进而控制显示的样式
     }
-    brush.onclick = function(){
-      eraserEnabledX = false
-      actions.className = 'actions'  //通过id可以控制类名，进而控制显示的样式
+    red.onclick = function(){
+      contextX.strokeStyle = 'red'
+      contextX.fillStyle = 'red'
+      red.classList.add('active')
+      green.classList.remove('active')
+      blue.classList.remove('active')
+
     }
+    green.onclick = function(){
+      contextX.strokeStyle = 'green'
+      contextX.fillStyle = 'green'
+      red.classList.remove('active')
+      green.classList.add('active')
+      blue.classList.remove('active')
+    }
+    blue.onclick = function(){
+      contextX.strokeStyle = 'blue'
+      contextX.fillStyle = 'blue'
+      red.classList.remove('active')
+      green.classList.remove('active')
+      blue.classList.add('active')
+    }
+    
 
     // -- Swkklt写下五段 ------------------------------------------ 
     // var lineWidthX = 5
@@ -147,14 +177,14 @@
     
     function drawCircleX(x,y,radiusX){ //画圆函数
       contextX.beginPath()
-      contextX.fillStyle = 'black'
+      //contextX.fillStyle = 'black'
       contextX.arc(x,y,radiusX,0,Math.PI*2);
       //contextX.stroke()
       contextX.fill()
     }
     function drawLineX(x1,y1,x2,y2){   //绘制路径函数
       contextX.beginPath()
-      contextX.strokeStyle = 'black'
+      //contextX.strokeStyle = 'black'
       contextX.moveTo(x1,y1);  //路径起点
       // <!-- 下一行 ------------------------------------------ -->
       //contextX.lineWidth = lineWidthX  //设置路径宽度

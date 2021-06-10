@@ -1,28 +1,74 @@
-body{
+ul,ol{
+  list-style: none;
+}
+*{
   margin: 0;
+  padding: 0;
+}
+.icon {
+  width: 1em; height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+body{
+  overflow: hidden;   /* 禁止手机出现滚动条 */
 }
 #xxx{
-  background: green;
   display: block;       /* 将xxx默认的inline-block类型改成block类型 */
 }
 .actions{
-  border:  3px solid #e06567;
+  /* border:  3px solid #e06567; */
   position: fixed;     /*  相对于浏览器窗口进行定位 */
-  bottom: 0;
+  top: 0;
   left: 0;
+  padding: 20px;
 }
-.actions > #brush{
-  display: none;  /* 设置画笔默认为隐藏状态 */
+.actions svg{
+  width: 1.5em;
+  height: 1.5em;
+  transition: all 0.3s;     /* 图标所有的变化过程用时0.3秒 */
+  margin: 0 10px;
 }
-.actions.x > #brush{   /* 下边的两个设置如果是状态“action x”即两者兼顾，那么画笔显示，橡皮擦隐藏 */
-  display: inline-block;
+.actions svg.active{   /* 绘画工具图标被点击时触发 */
+  fill:red;   /* 图标线条部分变红 */
+  transform: scale(1.2);  /* 图标被点击时放大1.2倍 */
+  
 }
-.actions.x > #eraser{
-  display: none;
-}
+
 /*#canvas{
   background: red;
   height: 100vh; viewport height————视口高度100% 与视图高度一样 
   position: relative;  相对定位
 }*/
+
+.colors{
+  position: fixed;
+  top: 60px;
+  left: 28px;
+  /* border:  1px solid red; */
+}
+.colors > li{
+  width: 20px;
+  height: 20px;
+  box-shadow: 0 0 3px rgba(0,0, 0, 0.25);
+  margin: 10px 0;
+  border-radius: 50%;     /*  方框变圆圈 */
+  transition: all 0.3s;
+}
+.colors > li.red{
+  background: red;
+}
+.colors > li.green{
+  background: green ;
+}
+.colors > li.blue{
+  background: blue;
+}
+.colors > li.active{
+  box-shadow: 0 0 5px rgba(0,0, 0, 0.95);
+  transform: scale(1.2);
+  
+}
+
   
