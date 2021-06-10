@@ -5,7 +5,7 @@ ul,ol{
   margin: 0;
   padding: 0;
 }
-.icon {
+.icon {   /* 图标需用第二步 */
   width: 1em; height: 1em;
   vertical-align: -0.15em;
   fill: currentColor;
@@ -16,6 +16,11 @@ body{
 }
 #xxx{
   display: block;       /* 将xxx默认的inline-block类型改成block类型 */
+  background: white;
+  /* 下边的三行，防止手机触摸屏幕滑动，但是会有css其它的干扰问题————在此先不用管 */
+  position:fixed;
+  top: 0;
+  left: 0;
 }
 .actions{
   /* border:  3px solid #e06567; */
@@ -33,7 +38,6 @@ body{
 .actions svg.active{   /* 绘画工具图标被点击时触发 */
   fill:red;   /* 图标线条部分变红 */
   transform: scale(1.2);  /* 图标被点击时放大1.2倍 */
-  
 }
 
 /*#canvas{
@@ -68,7 +72,30 @@ body{
 .colors > li.active{
   box-shadow: 0 0 5px rgba(0,0, 0, 0.95);
   transform: scale(1.2);
-  
 }
+.sizes {
+  position: fixed;
+  right: 20px;
+  top: 10px;
+}
+.sizes > li{
+  margin: 20px 0;
+}
+.sizes > .thin{
+  height: 0;
+  width: 20px;
+  border-top: 3px solid black;
+}
+.sizes > .thick{
+  height: 0;
+  width: 20px;
+  border-top: 6px solid black;
+}
+
+
+
+
+
+
 
   
